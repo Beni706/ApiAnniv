@@ -12,6 +12,7 @@
   "author": "Beni Valerien",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "6.4.1",
     "express": "^4.21.2",
     "prisma": "^6.4.1"
   },

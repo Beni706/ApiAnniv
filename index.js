@@ -1,5 +1,7 @@
 import express from 'express'
 import configureMiddlewares from './Middlewaires/middlewares.js'
+import organisateurRoute from './Routes/organisateurRoute.js'
+import participantRoute from "./Routes/participantRoute.js"
 
 const app = express()
 
@@ -10,6 +12,12 @@ configureMiddlewares(app)
 app.get('/', (req, res) => {
   res.send('Ceci est mon serveur !')
 })
+
+
+// Route pour les organisateurs
+app.use('/organisateurs', organisateurRoute)
+// Route pour les participants
+app.use('/participants', participantRoute)
 
 // Serveur en écoute sur le port 3000
 app.listen(3000, () => {    
