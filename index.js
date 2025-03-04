@@ -1,5 +1,5 @@
 import express from 'express'
-import configureMiddlewares from './Middlewaires/middlewares.js'
+import configureMiddlewares from './Middlewares/middlewares.js'
 import organisateurRoute from './Routes/organisateurRoute.js'
 import participantRoute from "./Routes/participantRoute.js"
 

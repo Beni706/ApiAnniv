@@ -1,13 +1,22 @@
 import express from 'express'
-import { createOrganisateur, getAllOrganisateur, deleteOrganisateur } from '../Controllers/organisateurController.js'
+import { getAllOrganisateur, createOrganisateur, loginOrganisateur, updatePassword, deleteOrganisateur } from '../Controllers/organisateurController.js'
+import { authenticateToken } from '../Middlewares/auth.js'
 
-const organisateurRoute = express.Router()
+const router = express.Router()
 
-// Afficher tous les organisateurs
-organisateurRoute.get('/', getAllOrganisateur)
-// Créer un nouvel organisateur
-organisateurRoute.post('/', createOrganisateur)
-// Supprimer un organisateur
-organisateurRoute.delete('/:id', deleteOrganisateur)
+// Route pour obtenir tous les organisateurs, protégée par le middleware d'authentification
+router.get('/', authenticateToken, getAllOrganisateur)
 
-export default organisateurRoute
+// Route pour créer un nouvel organisateur
+router.post('/', createOrganisateur)
+
+// Route pour connecter un organisateur
+router.post('/login', loginOrganisateur)
+
+// Mettre à jour un organisateur
+router.put('/:id', authenticateToken, updatePassword)
+
+// Route pour supprimer un organisateur, protégée par le middleware d'authentification
+router.delete('/:id', authenticateToken, deleteOrganisateur)
+
+export default router

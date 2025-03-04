@@ -1,12 +1,13 @@
 import express from 'express'
 import { getAllParticipant,  getParticipantById, createParticipant } from '../controllers/participantController.js '
+import { authenticateToken } from '../Middlewares/auth.js'
 
 const participantRoute = express.Router()
 
-// Afficher tous les participants
-participantRoute.get('/', getAllParticipant)
-// Afficher un participant par son id
-participantRoute.get('/:id', getParticipantById)
+// Route pour obtenir tous les organisateurs, protégée par le middleware d'authentification
+participantRoute.get('/', authenticateToken, getAllParticipant)
+// Route pour afficher un participant par son id, protegée par le middleware d'authentification
+participantRoute.get('/:id', authenticateToken, getParticipantById)
 // Créer un nouveau participant
 participantRoute.post('/', createParticipant)
 
