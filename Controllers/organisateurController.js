@@ -11,6 +11,7 @@ export const getAllOrganisateur = async (req, res) => {
     // Cette ligne de code récupère tous les organisateurs de la base de données, ainsi que les participants associés à chaque organisateur.
     const organisateurs = await prisma.organisateur.findMany({
       select: {
+        id_organisateur: true,
         nom: true,
         prenom: true,
         email: true,
@@ -84,6 +85,10 @@ export const deleteOrganisateur = async (req, res) => {
         where: { id_organisateur: parseInt(id) }
       })
 
+      if (!organisateur) {
+        return res.status(404).json({ error: "Organisateur introuvable" })
+      }
+
       // Supprimer l'organisateur
       await prisma.organisateur.delete({
         where: { id_organisateur: parseInt(id) }
@@ -133,6 +138,36 @@ export const loginOrganisateur = async (req, res) => {
   }
 }
 
+// Obtenir un organisateur par ID
+export const getOrganisateurById = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    // Trouver l'organisateur par ID
+    const organisateur = await prisma.organisateur.findUnique({
+      where: { id_organisateur: parseInt(id) },
+      select: {
+        id_organisateur: true,
+        nom: true,
+        prenom: true,
+        email: true,
+        nom_evenement: true,
+        date_evenement: true,
+        lieu: true,
+        Participants: true
+      }
+    })
+
+    if (!organisateur) {
+      return res.status(404).json({ error: 'Organisateur non trouvé' })
+    }
+
+    res.json(organisateur)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: error.message })
+  }
+}
 
 export const updatePassword = async (req, res) => {
     try {
@@ -168,3 +203,4 @@ export const updatePassword = async (req, res) => {
       res.status(500).json({ error: error.message })
     }
   }
+

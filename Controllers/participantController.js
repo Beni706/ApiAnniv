@@ -64,3 +64,22 @@ export const createParticipant = async (req, res) => {
   }
 }
 
+
+// Afficher les participants d'un organisateur
+export const getParticipantByIdOrganisateur = async (req, res) => {
+  try {
+    const { id } = req.params
+    const participants = await prisma.participant.findMany({
+      where: { id_organisateur: parseInt(id) }
+    })
+
+    if (participants.length === 0) {
+      return res.status(200).json({ message: "Aucun participant n'est associé à cet organisateur" })
+    }
+    res.json(participants)
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: error.message })
+  }
+}
