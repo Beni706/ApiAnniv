@@ -10,15 +10,7 @@ export const getAllOrganisateur = async (req, res) => {
   try {
     // Cette ligne de code récupère tous les organisateurs de la base de données, ainsi que les participants associés à chaque organisateur.
     const organisateurs = await prisma.organisateur.findMany({
-      select: {
-        id_organisateur: true,
-        nom: true,
-        prenom: true,
-        email: true,
-        password: false,
-        nom_evenement: true,
-        date_evenement: true,
-        lieu: true,
+      include: {
         Participants: true
       }
     })
