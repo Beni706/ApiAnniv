@@ -21,6 +21,7 @@ export const getAllOrganisateur = async (req, res) => {
   }
 }
 
+
 // Créer un nouvel organisateur
 export const createOrganisateur = async (req, res) => {
   try {
