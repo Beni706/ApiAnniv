@@ -1,6 +1,7 @@
 import express from 'express'
 import { getAllOrganisateur, getOrganisateurById, createOrganisateur, loginOrganisateur, updatePassword, deleteOrganisateur } from '../Controllers/organisateurController.js'
 import { authenticateToken } from '../Middlewares/auth.js'
+import '../swaggerDoc.js' // Importer les commentaires Swagger
 
 const router = express.Router()
 

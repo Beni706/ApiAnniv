@@ -22,7 +22,17 @@ export const authenticateToken = (req, res, next) => {
     next()
   } catch (error) {
     // Si le token est invalide, renvoyer une erreur
+    console.log(error)
     res.status(400).json({ error: 'Token invalide' })
   }
+}
+
+
+const token = 'anniversaire'
+try {
+  const decoded = jwt.verify(token, JWT_SECRET)
+  console.log('Token valide:', decoded)
+} catch (error) {
+  console.error('Token invalide:', error.message)
 }
 
