@@ -1,4 +1,10 @@
+/*
+  *Ce module est utilisé pour générer la spécification OpenAPI (JSON ou YAML) à partir des commentaires dans votre code (routes et fichier swaggerDoc.js). 
+ * Il analyse les annotations JSDoc-style que vous écrivez pour décrire vos API. 
+*/
 import swaggerJsdoc from 'swagger-jsdoc'
+
+// Ce module fournit une interface utilisateur (UI) pour afficher la documentation Swagger de manière interactive dans votre navigateur.
 import swaggerUi from 'swagger-ui-express'
 
 const options = {

@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
 // Clé secrète pour signer les tokens JWT
-const JWT_SECRET = 'anniversaire'
+const JWT_SECRET = process.env.JWT_SECRET
 
 // Middleware pour authentifier le token JWT
 export const authenticateToken = (req, res, next) => {

@@ -1,9 +1,11 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const prisma = new PrismaClient()
-const JWT_SECRET = 'anniversaire' // Assurez-vous de stocker ce secret de manière sécurisée
+const JWT_SECRET = process.env.JWT_SECRET // Assurez-vous de stocker ce secret de manière sécurisée
 
 // Afficher tous les organisateurs
 export const getAllOrganisateur = async (req, res) => {
@@ -58,7 +60,7 @@ export const createOrganisateur = async (req, res) => {
     })
 
     // Générer un token JWT
-    const token = jwt.sign({ id: newOrganisateur.id_organisateur }, JWT_SECRET, { expiresIn: '7d' })
+    const token = jwt.sign({ id: newOrganisateur.id_organisateur }, JWT_SECRET, { expiresIn: '1h' })
 
     res.status(201).json({ message: "Félicitation vous venez de vous enregistrer et de créer un évenement avec succès !", token })
   } catch (error) {
@@ -118,7 +120,7 @@ export const loginOrganisateur = async (req, res) => {
     }
 
     // Générer un token JWT
-    const token = jwt.sign({ id: organisateur.id_organisateur }, JWT_SECRET, { expiresIn: '7d' })
+    const token = jwt.sign({ id: organisateur.id_organisateur }, JWT_SECRET, { expiresIn: '1h' })
 
     res.json({ message: 'Connexion réussie', token })
   } catch (error) {
